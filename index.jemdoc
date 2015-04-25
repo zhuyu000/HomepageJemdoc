@@ -1,0 +1,36 @@
+# jemdoc: menu{MENU}{index.html}, showsource
+== Yu Zhu's Homepage 
+
+~~~
+{}{img_left}{images/yuzhu.jpg}{This is Yu Zhu on the Brooklyn Bridge}{169}{200}
+Yu Zhu, Ph.D. Candidate\n 
+School of Computer Science\n
+[http://en.nwpu.edu.cn/ Northwestern Polytechnical University]\n
+
+Joint student during Oct. 2012 - Nov. 2014\n
+[http://statistics.ucla.edu/ Department of Statistics]\n
+University of California, Los Angeles\n
+
+Email: {{<img src="images/mail1.png" height="18px" valign="bottom"/> }}, {{<img src="images/mail2.png" height="18px" valign="bottom"/> }}\n
+
+Advisor: Yanning Zhang, [http://www.stat.ucla.edu/~yuille/ Alan L. Yuille]
+~~~
+
+== Research Interests
+Image super-resolution; Patch representation. 
+
+== Recent Updates
+- {{<font color="red">The paper "Modeling Deformable Gradient Compositions for Single-Image Super-resolution" accepted by CVPR2015.</font>}}
+- Have received an equipment gift from NVIDIA Corporation (one Tesla K40 GPU) for my research. This support is gratefully acknowledged.
+- Matlab Code available now for "Single Image Super-resolution using Deformable Patches".
+- CUDA code available for "Single Image Super-resolution using Deformable Patches".
+- The paper "Single Image Super-resolution using Deformable Patches" accepted by CVPR2014.
+
+== Publications
+. Yu Zhu, Yanning Zhang, Boyan Bonev and Alan L. Yuille, \"Modeling Deformable Gradient Compositions for Single-Image Super-resolution\". accepted by CVPR2015.
+. Yu Zhu, Yanning Zhang and Alan Yuille, \"Single Image Super-resolution using Deformable Patches\", In CVPR 2014. \[[http://www.stat.ucla.edu/~yuille/Pubs10_12/Single%20Image%20Super-resolution%20using%20Deformable%20Patches_2003.pdf pdf] \]\[[CVPR14.html Code]\]
+. Xuan Dong, Boyan Bonev, Yu Zhu and Alan L. Yuille, \"Region-based Temporally Consistent Video Post-processing\". accepted by CVPR2015.
+
+
+{{<div align="right"> <img border="0" src="http://cc.amazingcounters.com/counter.php?i=3172071&c=9516526" alt="AmazingCounters.com"> </div>}}
+

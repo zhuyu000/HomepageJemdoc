@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Single Image Super-resolution using Deformable Patches </title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-62201912-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Menu</div>
+<div class="menu-item"><a href="index.html">Home</a></div>
+<div class="menu-item"><a href="CVPR14.html" class="current">Single&nbsp;Image&nbsp;Super&nbsp;-&nbsp;resolution<br /> using&nbsp;Deformable&nbsp;Patches</a></div>
+<div class="menu-item"><a href="CVPR15.html">Modeling&nbsp;Deformable&nbsp;Gradient&nbsp;<br /> Compositions&nbsp;for&nbsp;Single-Image<br /> Super-resolution</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Single Image Super-resolution using Deformable Patches </h1>
+</div>
+<h2>Project</h2>
+<table class="imgtable"><tr><td>
+<img src="images/cvpr14figure.png" alt="" height="350px" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Abstract</b>
+We proposed a deformable patch based method for single image super-resolution. By the concept of deformation, a patch is not regarded as a fixed vector but a flexible deformation flow. Via deformable patches, the dictionary can cover more patterns that do not appear, thus becoming more expressive. We present the energy function with slow, smooth and flexible prior for deformation model. During example-based super-resolution, we develop the deformation similarity based on the minimized energy function for basic patch matching. For robustness, we involve multiple deformed patches combination for the final reconstruction. Experiments evaluate the deformation effectiveness and super-resolution performance, showing that the deformable patch helps improve the representation accuracy and perform better results than the state-of-art methods.</p>
+<p><a href="images/cvprposter.pdf">Click here to see the CVPR14 poster of the paper.</a></p>
+<h2>GPU Code</h2>
+<p>DOWNLOAD: <a href="https://drive.google.com/file/d/0Bx3IcYvdVahaYzZUZ1kwdzhMSjg/edit?usp=sharing">DPSR_CVPR2014_v1.0.zip</a><br />
+If you have trouble connecting Google Drive, this is the alternative link: <a href="http://pan.baidu.com/s/1nt3CTYT">DPSR_CVPR2014_v1.0.zip</a></p>
+<p>1.    This is the code for the paper:</p>
+<p>*****************************************************************************<br />
+* Single Image Super-resolution using Deformable Patches<br />
+* IEEE Conference on Computer Vision and Pattern Recognition, 2014. CVPR &rsquo;14.<br />
+* Author: Yu Zhu, Yanning Zhang and Alan Yuille. {zhuyu1986@mail.nwpu.edu.cn, ynzhang@nwpu.edu.cn, yuille@stat.ucla.edu}<br /></p>
+<p>*****************************************************************************<br /></p>
+<p>2.    IF THE CODE HELPS YOU, PLEASE CITE THE PAPER.</p>
+<p>3.    Usage: Open MATLAB and locate the folder, type &ldquo;demo_deform&rdquo; and run. Some of the code use &ldquo;parfor&rdquo; loop, if you need it work, please run:</p>
+<p>&nbsp&nbsp&nbsp&nbsp	matlabpool('open&rsquo;,'local&rsquo;,CoreNum);</p>
+<p>4.    The code for deformation is implemented on GPU. We test the code on Tesla C1060, CUDA 4.2.9 and Ubuntu 10.04 64bit. You MUST have a GPU for computation before you run the code. The cpp file is precompiled as *.cpp.o file, you can use them for linking directly. If you modify the CUDA file &ldquo;DeformCUDA.cu&rdquo;, just try to compile it by &ldquo;make rebuild&rdquo; command under the folder &ldquo;CUDA&rdquo;.</p>
+<p>5.    We use vlfeat package, please add the code if you want to make your own dictionary:</p>
+<p>&nbsp&nbsp&nbsp&nbsp         addpath(&rsquo;~/Lib/vlfeat-0.9.16/toolbox/&rsquo;);</p>
+<p>&nbsp&nbsp&nbsp&nbsp         vl_setup();</p>
+<p>6.    If you have any questions, please feel free to contact us.</p>
+<h2>Matlab Code</h2>
+<p>DOWNLOAD: <a href="https://drive.google.com/file/d/0Bx3IcYvdVahabWNydVdod1hHT28/edit?usp=sharing">DPSR_CVPR2014_matlab_v2.0.zip</a><br />
+If you have trouble connecting Google Drive, this is the alternative link: <a href="http://pan.baidu.com/s/1mgDlgt6">DPSR_CVPR2014_matlab_v2.0.zip</a></p>
+<p>1.    This is the code for the paper:</p>
+<p>*****************************************************************************<br />
+* Single Image Super-resolution using Deformable Patches<br />
+* IEEE Conference on Computer Vision and Pattern Recognition, 2014. CVPR &rsquo;14.<br />
+* Author: Yu Zhu, Yanning Zhang and Alan Yuille. {zhuyu1986@mail.nwpu.edu.cn, ynzhang@nwpu.edu.cn, yuille@stat.ucla.edu}<br /></p>
+<p>*****************************************************************************<br /></p>
+<p>2.    IF THE CODE HELPS YOU, PLEASE CITE THE PAPER:</p>
+<p>3.    The code generates the same results as the GPU code but costs a lot of time. Parallelization on CPU is recommended (using 'parfor&rsquo;).</p>
+<p>4.    Usage: Open MATLAB and locate the folder, type &ldquo;demo_deform&rdquo; and run.
+Some of the code use &ldquo;parfor&rdquo; loop, if you need it work, please run:</p>
+<p>matlabpool('open&rsquo;,'local&rsquo;,CoreNum);</p>
+<p>5.    Some of the code is implemented by c<tt></tt>. Before the first run, make your mex file:</p>
+<p>&nbsp&nbsp&nbsp&nbsp                 mex MaxHeapsort.cpp </p>
+<p>6.    We use vlfeat package, please add the code if you want to make your own dictionary:</p>
+<p>&nbsp&nbsp&nbsp&nbsp                addpath(&rsquo;&nbsp;<i>Lib</i>vlfeat-0.9.16<i>toolbox</i>&rsquo;);</p>
+<p>&nbsp&nbsp&nbsp&nbsp               vl_setup();</p>
+<p>7.    If you have any questions, please feel free to contact us.</p>
+<h2>BibTex</h2>
+<p>@INPROCEEDINGS{6909769, <br />
+author={Yu Zhu and Yanning Zhang and Alan L. Yuille}, <br />
+booktitle={Computer Vision and Pattern Recognition (CVPR), 2014 IEEE Conference on}, <br />
+title={Single Image Super-resolution Using Deformable Patches}, <br />
+year={2014}, <br />
+month={June}, <br />
+pages={2917-2924}, <br />
+doi={10.1109/CVPR.2014.373},}</p>
+<div id="footer">
+<div id="footer-text">
+Page generated 2015-04-24 21:43:17 CST, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
+(<a href="CVPR14.jemdoc">source</a>)
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
