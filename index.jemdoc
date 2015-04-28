@@ -28,7 +28,7 @@ Image super-resolution; Patch representation.
 
 == Publications
 . Yu Zhu, Yanning Zhang, Boyan Bonev and Alan L. Yuille, \"Modeling Deformable Gradient Compositions for Single-Image Super-resolution\". accepted by CVPR2015.
-. Yu Zhu, Yanning Zhang and Alan Yuille, \"Single Image Super-resolution using Deformable Patches\", In CVPR 2014. \[[http://www.stat.ucla.edu/~yuille/Pubs10_12/Single%20Image%20Super-resolution%20using%20Deformable%20Patches_2003.pdf pdf] \]\[[CVPR14.html Code]\]
+. Yu Zhu, Yanning Zhang and Alan L. Yuille, \"Single Image Super-resolution using Deformable Patches\", In CVPR 2014. \[[http://www.stat.ucla.edu/~yuille/Pubs10_12/Single%20Image%20Super-resolution%20using%20Deformable%20Patches_2003.pdf pdf] \]\[[CVPR14.html Code]\]
 . Xuan Dong, Boyan Bonev, Yu Zhu and Alan L. Yuille, \"Region-based Temporally Consistent Video Post-processing\". accepted by CVPR2015.
 
 
