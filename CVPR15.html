@@ -5,7 +5,7 @@
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Coming Soon&hellip;</title>
+<title>Modeling Deformable Gradient Compositions for Single-Image Super-resolution </title>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,11 +26,61 @@
 </td>
 <td id="layout-content">
 <div id="toptitle">
-<h1>Coming Soon&hellip;</h1>
+<h1>Modeling Deformable Gradient Compositions for Single-Image Super-resolution </h1>
 </div>
+<h2>Project</h2>
+<table class="imgtable"><tr><td>
+<img src="images/cvpr15figure.png" alt="" height="350px" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<h3>Abstract</h3>
+<p>We propose a single-image super-resolution method based on the gradient reconstruction. To predict the gradient field, we collect a dictionary of gradient patterns from an external set of images. We observe that there are patches representing singular primitive structures (e.g. a single edge), and non-singular ones (e.g. a triplet of edges). Based on the fact that singular primitive patches are more invariant to the scale change (i.e. have less ambiguity across different scales), we represent the non-singular primitives as compositions of singular ones, each of which is allowed some deformation. Both the input patches and dictionary elements are decomposed to contain only singular primitives. The compositional aspect of the model makes the gradient field more reliable. The deformable aspect makes the dictionary more expressive. As shown in our experimental results, the proposed method outperforms the state-of-the-art methods.</p>
+<h3>Motivation</h3>
+<table class="imgtable"><tr><td>
+<img src="images/motivation15.png" alt="" height="250px" />&nbsp;</td>
+<td align="left"><p>Singular structures such as single edges and corners are more robust to scale change. In other words they are less ambiguous across different scales. Also, the non-singular structures are more likely to be lost during the degradation. Most methods work better on singular structures. Here are the comparision with sparse coding and deformable patches methods, showing the HR estimation and their components(linear or weighed combinations ). They work well on singular structures. But for non-singular case, the sparse coding method tends to select more complex patterns, leading to the blurred HR estimation. And for deformable patches method, it is hard to find appropriate candidates for the non-singular structure. This inspires us to decompose the non-singular structures to singular structures. We also exploit the deformable patch based method to make the dictionary deformable and, thus, more expressive.</p>
+</td></tr></table>
+<h3>Modeling the Gradient Compositions</h3>
+
+<div class="eqwl"><img class="eqwl" src="eqs/4461516367647181222-130.png" alt=" nabla tilde X_h = frac{sum_{pin Z}R^top_pM_{p,Z}^topcdoteta_pcdotphi(D_{h}delta(D_{gl},M_{p,Z}R_pnabla X_l))}{sum_{pin Z}R^top_pM_{p,Z}^top M_{p,Z}R_p} " />
+<br /></div><p>The symbols are the following:</p>
+<p><img class="eq" src="eqs/11520034651-130.png" alt="Z" style="vertical-align: -0px" />: the gradient ridges of the entire image ie the local maximum along the gradient direction. </p>
+<p><img class="eq" src="eqs/102831656927585592-130.png" alt="R_p" style="vertical-align: -6px" />: patch extraction operator that extracts a patch centered at the position <img class="eq" src="eqs/535431350975960622-130.png" alt="p = (x,y)" style="vertical-align: -5px" />.</p>
+<p><img class="eq" src="eqs/8713535807722958022-130.png" alt="R_p^top" style="vertical-align: -8px" />: the inverse operation of <img class="eq" src="eqs/102831656927585592-130.png" alt="R_p" style="vertical-align: -6px" /> that maps the patch to the position <img class="eq" src="eqs/14336043121-130.png" alt="p" style="vertical-align: -4px" /> of the constructed image.</p>
+<p><img class="eq" src="eqs/345246783407162951-130.png" alt="M_{p,Z}" style="vertical-align: -6px" />: the patch mask generated from the gradient ridge point, centered at <img class="eq" src="eqs/14336043121-130.png" alt="p" style="vertical-align: -4px" />;</p>
+<p><img class="eq" src="eqs/3780418731882909920-130.png" alt="delta" style="vertical-align: -1px" />: the indicative function that chooses the best match between the input LR patch and LR gradient dictionary. </p>
+<p><img class="eq" src="eqs/5161645540727415391-130.png" alt="phi" style="vertical-align: -4px" />: the deformation function.</p>
+<p><img class="eq" src="eqs/7902863039772871777-130.png" alt="eta_p" style="vertical-align: -6px" />: the gradient contrast adjustment ratio between the LR patch and corresponding HR patch with the form <img class="eq" src="eqs/1240031786969833071-130.png" alt="eta_p = alpha Var(M_{p,Z}R_p|nabla X_l|)" style="vertical-align: -6px" />, where <img class="eq" src="eqs/550068763936522729-130.png" alt="|nabla X_l|" style="vertical-align: -5px" /> denotes the gradient magnitude. By the global parameter <img class="eq" src="eqs/7227645438722938594-130.png" alt="alpha" style="vertical-align: -1px" />, <img class="eq" src="eqs/7902863039772871777-130.png" alt="eta_p" style="vertical-align: -6px" /> we adjust the contrast of the normalized output of the patch deformation stage. The setting of the global parameter <img class="eq" src="eqs/7227645438722938594-130.png" alt="alpha" style="vertical-align: -1px" /> is discussed in the experiments.</p>
+<p><img class="eq" src="eqs/3785846388997829190-130.png" alt="D_{l}" style="vertical-align: -4px" /> and <img class="eq" src="eqs/3785846389001829170-130.png" alt="D_{h}" style="vertical-align: -4px" />: the LR and HR dictionary respectively. </p>
+<h3>Modeling the Patch Deformation</h3>
+<p>First we add the mask to the intensity patches to make them contain a single edge. The dictionary elements are masked in the same way. After adding the masks, both the input LR patch and the selected HR candidate contain singular structures. Then we minimize the following energy function to obtain the deformation field <img class="eq" src="eqs/14976045044-130.png" alt="u" style="vertical-align: -1px" /> (along <img class="eq" src="eqs/15360046201-130.png" alt="x" style="vertical-align: -1px" /> direction) and <img class="eq" src="eqs/15104045431-130.png" alt="v" style="vertical-align: -1px" /> (along <img class="eq" src="eqs/15488046584-130.png" alt="y" style="vertical-align: -4px" /> direction):</p>
+
+<div class="eqwl"><img class="eqwl" src="eqs/3520971581796648221-130.png" alt="   E = ||B_l+B_{lx}circ u+B_{ly}circ v-P_l||^2+psi(u,v) " />
+<br /></div><p>Under the assumption that the LR/HR patches share the deformation field, the warping function <img class="eq" src="eqs/5161645540727415391-130.png" alt="phi" style="vertical-align: -4px" /> has the form:</p>
+
+<div class="eqwl"><img class="eqwl" src="eqs/6947998016779987586-130.png" alt="   phi(B_h) = nabla(B_h+B_{hx}circ u+B_{hy}circ v), " />
+<br /></div><p>where <img class="eq" src="eqs/2149279368094130082-130.png" alt="P_l" style="vertical-align: -4px" /> is the masked input intensity patch. <img class="eq" src="eqs/5745622599065657863-130.png" alt="B_h = D_hdelta " style="vertical-align: -4px" /> is the selected HR candidate for input LR patch. You can see more details in <a href="CVPR14.html">Deformable Patch based method</a>.</p>
+<h3>Super-resolution Reconstruction Model</h3>
+<p>We impose the integrated gradient prior <img class="eq" src="eqs/6626433226415310712-130.png" alt="nabla tilde X_h" style="vertical-align: -4px" /> on the given LR image <img class="eq" src="eqs/6859164731800732246-130.png" alt="X_l" style="vertical-align: -4px" /> to recover the HR details. The following energy function is minimized by enforcing the constraint in both intensity domain and gradient domain:</p>
+
+<div class="eqwl"><img class="eqwl" src="eqs/3658408838757413541-130.png" alt="   E(X_h|X_l,nabla tilde X_h) = ||SHX_h-X_l||^2+beta||nabla X_h-nabla tilde X_h||^2, " />
+<br /></div><p>where <img class="eq" src="eqs/10624031954-130.png" alt="S" style="vertical-align: -1px" /> is a down-sampling operator, <img class="eq" src="eqs/9216027721-130.png" alt="H" style="vertical-align: -0px" /> is a blurring operator. <img class="eq" src="eqs/4226120147019918905-130.png" alt="beta" style="vertical-align: -4px" /> is a parameter that balances the constraints between the intensity domain and the gradient domain. The global minimum can be obtained by gradient decent:</p>
+
+<div class="eqwl"><img class="eqwl" src="eqs/159114743270834495-130.png" alt=" X_h^{t+1} = X_h^t-tau[(H^top S^top SHX_h-H^top S^top X_l)-beta(mathrm{div}(nabla X_h)-mathrm{div}(nabla tilde X_h)) " />
+<br /></div><p>where <img class="eq" src="eqs/14848044661-130.png" alt="t" style="vertical-align: -1px" /> is the iteration number and <img class="eq" src="eqs/5161649540742415246-130.png" alt="tau" style="vertical-align: -1px" /> is the iteration step. <img class="eq" src="eqs/3251524517180261314-130.png" alt="mathrm{div}(nabla X_h)" style="vertical-align: -5px" /> denotes the divergence of <img class="eq" src="eqs/8062338600493731553-130.png" alt="nabla X_h" style="vertical-align: -4px" /> via the form <img class="eq" src="eqs/4578635043511228883-130.png" alt="mathrm{div}(nabla X_h) = partial^2X_h/partial x^2+partial^2X_h/partial y^2" style="vertical-align: -5px" />, which can be implemented easily using the Laplace operator. </p>
+<h3>Results and Analysis</h3>
+<h2>Code</h2>
+<p>Coming soon&hellip;</p>
+<h2>BibTex</h2>
+<p>@INPROCEEDINGS{Zhu2015, <br />
+author={Yu Zhu and Yanning Zhang and Boyan Bonev and Alan L. Yuille}, <br />
+booktitle={Computer Vision and Pattern Recognition (CVPR), 2015 IEEE Conference on}, <br />
+title={Modeling Deformable Gradient Compositions for Single-Image Super-resolution}, <br />
+year={2015}, <br />
+month={June}, <br />
+}</p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2015-04-28 16:47:55 CST, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
+Page generated 2015-04-30 22:16:41 CST, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
 (<a href="CVPR15.jemdoc">source</a>)
 </div>
 </div>
