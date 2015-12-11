@@ -15,58 +15,10 @@ We propose a single-image super-resolution method based on the gradient reconstr
 Singular structures such as single edges and corners are more robust to scale change. In other words they are less ambiguous across different scales. Also, the non-singular structures are more likely to be lost during the degradation. Most methods work better on singular structures. Here are the comparision with sparse coding and deformable patches methods, showing the HR estimation and their components(linear or weighed combinations ). They work well on singular structures. But for non-singular case, the sparse coding method tends to select more complex patterns, leading to the blurred HR estimation. And for deformable patches method, it is hard to find appropriate candidates for the non-singular structure. This inspires us to decompose the non-singular structures to singular structures. We also exploit the deformable patch based method to make the dictionary deformable and, thus, more expressive.
 ~~
 
-=== Modeling the Gradient Compositions
+== Download
+[images/1697.pdf Camera Ready Paper]\n
+[images/1697_ext.pdf Extened Abstract]
 
-\(
-\nabla \tilde X_h = \frac{\sum_{p\in Z}R^\top_pM_{p,Z}^\top\cdot\eta_p\cdot\phi(D_{h}\delta(D_{gl},M_{p,Z}R_p\nabla X_l))}{\sum_{p\in Z}R^\top_pM_{p,Z}^\top M_{p,Z}R_p}
-\)
-
-The symbols are the following:
-
-$Z$: the gradient ridges of the entire image \ie the local maximum along the gradient direction. 
-
-$R_p$: patch extraction operator that extracts a patch centered at the position $p = (x,y)$.
-
-$R_p^\top$: the inverse operation of $R_p$ that maps the patch to the position $p$ of the constructed image.
-
-$M_{p,Z}$: the patch mask generated from the gradient ridge point, centered at $p$;
-
-$\delta$: the indicative function that chooses the best match between the input LR patch and LR gradient dictionary. 
-
-$\phi$: the deformation function.
-
-$\eta_p$: the gradient contrast adjustment ratio between the LR patch and corresponding HR patch with the form $\eta_p = \alpha Var(M_{p,Z}R_p|\nabla X_l|)$, where $|\nabla X_l|$ denotes the gradient magnitude. By the global parameter $\alpha$, $\eta_p$ we adjust the contrast of the normalized output of the patch deformation stage. The setting of the global parameter $\alpha$ is discussed in the experiments.
-
-$D_{l}$ and $D_{h}$: the LR and HR dictionary respectively. 
-
-=== Modeling the Patch Deformation
-First we add the mask to the intensity patches to make them contain a single edge. The dictionary elements are masked in the same way. After adding the masks, both the input LR patch and the selected HR candidate contain singular structures. Then we minimize the following energy function to obtain the deformation field $u$ (along $x$ direction) and $v$ (along $y$ direction):
-\(
-  E = ||B_l+B_{lx}\circ u+B_{ly}\circ v-P_l||^2+\psi(u,v)
-\)
-Under the assumption that the LR/HR patches share the deformation field, the warping function $\phi$ has the form:
-\(
-  \phi(B_h) = \nabla(B_h+B_{hx}\circ u+B_{hy}\circ v),
-\)
-where $P_l$ is the masked input intensity patch. $B_h = D_h\delta $ is the selected HR candidate for input LR patch. You can see more details in [CVPR14.html Deformable Patch based method].
-
-=== Super-resolution Reconstruction Model
-
-We impose the integrated gradient prior $\nabla \tilde X_h$ on the given LR image $X_l$ to recover the HR details. The following energy function is minimized by enforcing the constraint in both intensity domain and gradient domain:
-\(
-  E(X_h|X_l,\nabla \tilde X_h) = ||SHX_h-X_l||^2+\beta||\nabla X_h-\nabla \tilde X_h||^2,
-\)
-where $S$ is a down-sampling operator, $H$ is a blurring operator. $\beta$ is a parameter that balances the constraints between the intensity domain and the gradient domain. The global minimum can be obtained by gradient decent:
-\(
-X_h^{t+1} = X_h^t-\tau[(H^\top S^\top SHX_h-H^\top S^\top X_l)-\beta(\mathrm{div}(\nabla X_h)-\mathrm{div}(\nabla \tilde X_h))
-\)
-where $t$ is the iteration number and $\tau$ is the iteration step. $\mathrm{div}(\nabla X_h)$ denotes the divergence of $\nabla X_h$ via the form $\mathrm{div}(\nabla X_h) = \partial^2X_h/\partial x^2+\partial^2X_h/\partial y^2$, which can be implemented easily using the Laplace operator. 
-
-=== Results and Analysis
-
-
-== Code
-Coming soon...
 == BibTex
 @INPROCEEDINGS{Zhu2015, \n
 author={Yu Zhu and Yanning Zhang and Boyan Bonev and Alan L. Yuille}, \n
